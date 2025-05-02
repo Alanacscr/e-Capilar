@@ -1,9 +1,8 @@
 package unitins.br.tp1.resource;
 
-import java.util.List;
-
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,9 +11,10 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import unitins.br.tp1.dto.ProdutoDTO;
-import unitins.br.tp1.dto.ProdutoResponseDTO;
 import unitins.br.tp1.service.ProdutoService;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Path("produtos")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,32 +25,32 @@ public class ProdutoResource {
     ProdutoService service;
 
     @GET
-    public List<ProdutoResponseDTO> buscarTodos() {
-        return service.findAll();
+    public Response buscarTodos() {
+        return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
     @Path("/nome/{nome}")
-    public ProdutoResponseDTO buscarPorNome(String nome) {
-        return service.findByNome(nome);
+    public Response buscarPorNome(String nome) {
+        return Response.status(Status.OK).entity(service.findByNome(nome)).build();
     }
 
     @POST
-    public ProdutoResponseDTO incluir(ProdutoDTO dto) {
-        return service.create(dto);
+    public Response incluir(@Valid ProdutoDTO dto) {
+        return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void alterar(Long id, ProdutoDTO dto) {
-        service.update(id, dto);
+    public Response alterar(Long id, ProdutoDTO dto) {
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    public void apagar(Long id) {
-        service.delete(id);
+    public Response apagar(Long id) {
+        return Response.noContent().build();
     }
 
 }

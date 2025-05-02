@@ -13,4 +13,8 @@ public class MunicipioRepository implements PanacheRepository<Municipio> {
         return find("SELECT m FROM Municipio m WHERE m.nome LIKE ?1 ", "%" + nome + "%").list();
     }
 
+    public List<Municipio> findByEstado(Long idEstado) {
+        return find("SELECT m FROM Municipio m WHERE m.estado.id = ?1", idEstado).list();
+    }
+
 }

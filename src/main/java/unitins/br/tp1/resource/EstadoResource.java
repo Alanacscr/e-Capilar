@@ -13,42 +13,37 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import unitins.br.tp1.dto.EnderecoDTO;
-import unitins.br.tp1.service.EnderecoService;
+import unitins.br.tp1.dto.EstadoDTO;
+import unitins.br.tp1.service.EstadoService;
 
-@Path("Enderecos")
+@Path("estados")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class EnderecoResource {
+public class EstadoResource {
 
     @Inject
-    EnderecoService service;
+    EstadoService service;
 
     @GET
-    public Response buscarTodos() {
-        return Response.status(Status.OK).entity(service.findAll()).build();
+    public Response buscarTodos() { 
+        return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
-    @Path("/municipio/{id}")
-    public Response buscarPorMunicipio(Long id) {
-        return Response.status(Status.OK).entity(service.findByMunicipio(id)).build();
-    }
-
-    @GET
-    @Path("/bairro/{bairro}")
-    public Response buscarPorBairro(String bairro) {
-        return Response.status(Status.OK).entity(service.findByBairro(bairro)).build();
+    @Path("/sigla/{sigla}")
+    public Response buscarPorSigla(String sigla) { 
+        return Response.ok().entity(service.findBySigla(sigla)).build();
     }
 
     @POST
-    public Response incluir(@Valid EnderecoDTO dto) {
+    public Response incluir(@Valid EstadoDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response alterar(Long id, EnderecoDTO dto) {
+    public Response alterar(Long id, EstadoDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -56,6 +51,7 @@ public class EnderecoResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 

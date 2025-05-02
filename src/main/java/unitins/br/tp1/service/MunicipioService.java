@@ -12,6 +12,7 @@ public interface MunicipioService {
     void delete(long id);
     MunicipioResponseDTO findById(long id);
     List<MunicipioResponseDTO> findByNome(String nome);
+    List<MunicipioResponseDTO> findByEstado(Long idEstado);
     List<MunicipioResponseDTO> findAll();
     
 }
