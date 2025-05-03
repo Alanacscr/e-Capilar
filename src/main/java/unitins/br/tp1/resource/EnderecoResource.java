@@ -16,7 +16,7 @@ import jakarta.ws.rs.core.Response.Status;
 import unitins.br.tp1.dto.EnderecoDTO;
 import unitins.br.tp1.service.EnderecoService;
 
-@Path("Enderecos")
+@Path("enderecos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EnderecoResource {
@@ -42,13 +42,14 @@ public class EnderecoResource {
     }
 
     @POST
-    public Response incluir(@Valid EnderecoDTO dto) {
+    public Response incluir(EnderecoDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, EnderecoDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -56,6 +57,7 @@ public class EnderecoResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 

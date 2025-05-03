@@ -43,6 +43,7 @@ public class TelefoneResource {
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, TelefoneDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -50,6 +51,7 @@ public class TelefoneResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 

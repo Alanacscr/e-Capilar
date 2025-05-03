@@ -2,7 +2,6 @@ package unitins.br.tp1.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -42,13 +41,14 @@ public class CategoriaResource {
     }
 
     @POST
-    public Response incluir(@Valid CategoriaDTO dto) {
+    public Response incluir(CategoriaDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, CategoriaDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -56,6 +56,7 @@ public class CategoriaResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 

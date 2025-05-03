@@ -1,6 +1,5 @@
 package unitins.br.tp1.resource;
 
-import java.util.List;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -15,7 +14,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import unitins.br.tp1.dto.UsuarioDTO;
-import unitins.br.tp1.dto.UsuarioResponseDTO;
 import unitins.br.tp1.service.UsuarioService;
 
 @Path("usuarios")
@@ -45,6 +43,7 @@ public class UsuarioResource {
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, UsuarioDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
     
@@ -52,6 +51,7 @@ public class UsuarioResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
     

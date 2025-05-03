@@ -1,6 +1,5 @@
 package unitins.br.tp1.resource;
 
-import java.util.List;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,7 +17,7 @@ import jakarta.ws.rs.core.Response.Status;
 import unitins.br.tp1.dto.MunicipioDTO;
 import unitins.br.tp1.service.MunicipioService;
 
-@Path("Municipios")
+@Path("municipios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MunicipioResource {
@@ -51,6 +50,7 @@ public class MunicipioResource {
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, MunicipioDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -58,6 +58,7 @@ public class MunicipioResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 }

@@ -36,13 +36,14 @@ public class ProdutoResource {
     }
 
     @POST
-    public Response incluir(@Valid ProdutoDTO dto) {
+    public Response incluir(ProdutoDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
     public Response alterar(Long id, ProdutoDTO dto) {
+        service.update(id, dto);
         return Response.noContent().build();
     }
 
@@ -50,6 +51,7 @@ public class ProdutoResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        service.delete(id);
         return Response.noContent().build();
     }
 
