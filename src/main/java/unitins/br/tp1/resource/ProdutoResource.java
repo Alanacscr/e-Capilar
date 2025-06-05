@@ -25,13 +25,13 @@ public class ProdutoResource {
     ProdutoService service;
 
     @GET
-    @RolesAllowed("Administrador")
+    // @RolesAllowed("Administrador")
     public Response buscarTodos() {
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
-    @RolesAllowed("Cliente")
+    // @RolesAllowed("Cliente")
     @Path("/nome/{nome}")
     public Response buscarPorNome(String nome) {
         return Response.status(Status.OK).entity(service.findByNome(nome)).build();

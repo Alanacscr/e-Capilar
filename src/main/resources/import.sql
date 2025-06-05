@@ -23,25 +23,32 @@ insert into telefone (codigoarea, numero) values ('063', '98129-1290');
 insert into produto (nome, descricao, preco, quantidadeestoque, cor)
 values ('Igora', 'Produto de otima qualidade', 79.90, 10, 1);
 
-insert into usuario(nome, email, senha, perfil, id_telefone) 
+insert into categoria (nome, id_produto) values ('fuleira', 1);
+
+insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
+values('Rua 1', 100,'Taquaralto', '11009-011','Predio', 1);
+
+insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
+values('Rua 2', 10,'Plano diretor Norte', '13229-011','Casa', 1);
+
+insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco) 
     values (
         'Alana', 
         'alana@gmail.com',
         'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==',
         1,
-        2);
+        2,
+        1);
 
-insert into usuario(nome, email, senha, perfil, id_telefone) 
+insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco) 
     values (
         'Janio', 
         'janio@gmail.com',
         'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==',
         2,
-        1);
+        1,
+        2);
 
-insert into categoria (nome, id_produto) values ('fuleira', 1);
 
-insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
-values('Rua 1', 100,'Taquaralto', '11009-011','Predio', 1);
 
 

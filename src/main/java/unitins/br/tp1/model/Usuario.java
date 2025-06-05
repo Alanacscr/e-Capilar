@@ -20,6 +20,10 @@ public class Usuario extends DefaultEntity {
     @JoinColumn(name = "id_telefone", unique = true)
     private Telefone telefone;
 
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
+
     public String getNome() {
         return nome;
     }
@@ -60,4 +64,11 @@ public class Usuario extends DefaultEntity {
         this.telefone = telefone;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

@@ -16,6 +16,8 @@ public record UsuarioDTO (
     @Min(value = 1, message = "O valor mínimo para o perfil é 1.")
     Integer idPerfil,
     @Min(value = 1, message = "O valor mínimo para o telefone é 1.")
-    Long idTelefone) {
+    Long idTelefone,
+    @Min(value = 1, message = "O valor mínimo para o endereco é 1.")
+    Long idEndereco) {
 
 }

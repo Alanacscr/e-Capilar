@@ -12,7 +12,7 @@ public class Produto extends DefaultEntity {
     private String descricao;
     @Column(nullable = false)
     private double preco;
-    @Column(length = 3, nullable = false)
+    @Column(columnDefinition = "INT CHECK (quantidadeEstoque >= 0)")
     private Integer quantidadeEstoque;
 
     private Cor cor;

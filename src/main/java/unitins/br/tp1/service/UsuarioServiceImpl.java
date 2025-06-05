@@ -7,9 +7,11 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import unitins.br.tp1.dto.UsuarioDTO;
 import unitins.br.tp1.dto.UsuarioResponseDTO;
+import unitins.br.tp1.model.Endereco;
 import unitins.br.tp1.model.Perfil;
 import unitins.br.tp1.model.Telefone;
 import unitins.br.tp1.model.Usuario;
+import unitins.br.tp1.repository.EnderecoRepository;
 import unitins.br.tp1.repository.TelefoneRepository;
 import unitins.br.tp1.repository.UsuarioRepository;
 
@@ -20,6 +22,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     UsuarioRepository usuarioRepository;
     @Inject
     TelefoneRepository telefoneRepository;
+    @Inject
+    EnderecoRepository enderecoRepository;
 
     @Override
     @Transactional
@@ -33,6 +37,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         // buscando o telefone pelo id
         Telefone telefone = telefoneRepository.findById(usuario.idTelefone());
         novoUsuario.setTelefone(telefone);
+
+        Endereco endereco = enderecoRepository.findById(usuario.idEndereco());
+        novoUsuario.setEndereco(endereco);
 
         // realizando inclusao
         usuarioRepository.persist(novoUsuario);
@@ -51,7 +58,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         // buscando o telefone pelo id
         Telefone telefone = telefoneRepository.findById(usuario.idTelefone());
+        Endereco endereco = enderecoRepository.findById(usuario.idEndereco());
+
         edicaoUsuario.setTelefone(telefone);
+        edicaoUsuario.setEndereco(endereco);
     }
 
     @Override

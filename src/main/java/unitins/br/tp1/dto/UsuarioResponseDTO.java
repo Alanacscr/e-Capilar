@@ -9,7 +9,8 @@ public record UsuarioResponseDTO(
         String email,
         String senha,
         Perfil perfil,
-        TelefoneResponseDTO telefone) {
+        TelefoneResponseDTO telefone,
+        EnderecoResponseDTO endereco) {
 
     public static UsuarioResponseDTO valueOf(Usuario usuario) {
         if (usuario == null)
@@ -20,6 +21,7 @@ public record UsuarioResponseDTO(
                 usuario.getEmail(),
                 usuario.getSenha(),
                 usuario.getPerfil(),
-                TelefoneResponseDTO.valueOf(usuario.getTelefone()));
+                TelefoneResponseDTO.valueOf(usuario.getTelefone()),
+                EnderecoResponseDTO.valueOf(usuario.getEndereco()));
     }
 }
