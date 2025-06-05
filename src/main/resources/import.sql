@@ -23,8 +23,21 @@ insert into telefone (codigoarea, numero) values ('063', '98129-1290');
 insert into produto (nome, descricao, preco, quantidadeestoque, cor)
 values ('Igora', 'Produto de otima qualidade', 79.90, 10, 1);
 
-INSERT INTO usuario (nome, email, senha, perfil, id_telefone)
-VALUES ('Alana', 'alana@gmail.com', '123', 1, 1);
+insert into usuario(nome, email, senha, perfil, id_telefone) 
+    values (
+        'Alana', 
+        'alana@gmail.com',
+        'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==',
+        1,
+        2);
+
+insert into usuario(nome, email, senha, perfil, id_telefone) 
+    values (
+        'Janio', 
+        'janio@gmail.com',
+        'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==',
+        2,
+        1);
 
 insert into categoria (nome, id_produto) values ('fuleira', 1);
 

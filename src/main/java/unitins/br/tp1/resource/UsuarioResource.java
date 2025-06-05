@@ -1,5 +1,7 @@
 package unitins.br.tp1.resource;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -14,6 +16,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import unitins.br.tp1.dto.UsuarioDTO;
+import unitins.br.tp1.dto.UsuarioResponseDTO;
 import unitins.br.tp1.service.UsuarioService;
 
 @Path("usuarios")
@@ -22,7 +25,24 @@ import unitins.br.tp1.service.UsuarioService;
 public class UsuarioResource {
 
     @Inject
+    JsonWebToken jwt;
+
+    @Inject
     UsuarioService service;
+
+    @GET
+    @RolesAllowed({"Cliente", "Administrador"})
+    @Path("/perfil")
+    public Response buscarUsuarioLogado() { 
+
+        // obtendo o email do token
+        String email = jwt.getSubject();
+
+        // buscando no banco o usuario pelo seu email
+        UsuarioResponseDTO usuario = service.findByEmail(email);
+
+        return Response.ok().entity(usuario).build();
+    }
 
     @GET
     public Response buscarTodos() {

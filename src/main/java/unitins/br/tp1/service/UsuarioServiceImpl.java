@@ -75,4 +75,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findAll().stream().map(e -> UsuarioResponseDTO.valueOf(e)).toList();
     }
 
+    @Override
+    public UsuarioResponseDTO findByEmailAndSenha(String email, String senha) {
+        return UsuarioResponseDTO.valueOf(
+                usuarioRepository.findByEmailAndSenha(email, senha)
+            );
+
+    }
+
+    @Override
+    public UsuarioResponseDTO findByEmail(String email) {
+        return UsuarioResponseDTO.valueOf(
+            usuarioRepository.findByEmail(email)
+        );
+    }
+
 }

@@ -13,4 +13,6 @@ public interface UsuarioService {
     UsuarioResponseDTO findById(long id);
     UsuarioResponseDTO findByNome(String nome);
     List<UsuarioResponseDTO> findAll();
+    UsuarioResponseDTO findByEmailAndSenha(String email, String senha);
+    UsuarioResponseDTO findByEmail(String email);
 }

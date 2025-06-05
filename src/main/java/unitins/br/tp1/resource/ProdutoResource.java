@@ -1,8 +1,8 @@
 package unitins.br.tp1.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -25,11 +25,13 @@ public class ProdutoResource {
     ProdutoService service;
 
     @GET
+    @RolesAllowed("Administrador")
     public Response buscarTodos() {
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed("Cliente")
     @Path("/nome/{nome}")
     public Response buscarPorNome(String nome) {
         return Response.status(Status.OK).entity(service.findByNome(nome)).build();

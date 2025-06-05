@@ -9,15 +9,15 @@ import jakarta.persistence.OneToOne;
 public class Usuario extends DefaultEntity {
     @Column(length = 60, nullable = false)
     private String nome;
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(length = 88, nullable = false)
     private String senha;
 
     private Perfil perfil;
 
     @OneToOne
-    @JoinColumn(name = "id_telefone")
+    @JoinColumn(name = "id_telefone", unique = true)
     private Telefone telefone;
 
     public String getNome() {
