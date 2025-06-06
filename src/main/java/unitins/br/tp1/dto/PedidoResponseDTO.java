@@ -8,12 +8,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import unitins.br.tp1.model.Pedido;
 
 public record PedidoResponseDTO(
-        Long id,
-        LocalDateTime dataHora,
-        UsuarioResponseDTO usuario,
-        List<ItemPedidoResponseDTO> itens,
-        @Schema(description = "Valor total do pedido", example = "100.00")
-        Double total) {
+    Long id,
+    LocalDateTime dataHora,
+    UsuarioResponseDTO usuario,
+    List<ItemPedidoResponseDTO> itens,
+    @Schema(description = "Valor total do pedido", example = "100.00")
+    Double total,
+    PagamentoResponseDTO pagamento  // Adicionando o pagamento no DTO de resposta
+) {
 
     public static PedidoResponseDTO valueOf(Pedido pedido) {
         if (pedido == null) {
@@ -25,8 +27,8 @@ public record PedidoResponseDTO(
                 pedido.getDataHora(),
                 UsuarioResponseDTO.valueOf(pedido.getUsuario()),
                 pedido.getItens().stream().map(i -> ItemPedidoResponseDTO.valueOf(i)).toList(),
-                pedido.getTotalPedido() 
+                pedido.getTotalPedido(),
+                PagamentoResponseDTO.valueOf(pedido.getPagamento())  // Preenchendo o pagamento
         );
     }
-
 }

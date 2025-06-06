@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import unitins.br.tp1.model.Pagamento.Pagamento;
 
 @Entity
 public class Pedido extends DefaultEntity {
@@ -22,6 +24,10 @@ public class Pedido extends DefaultEntity {
     private List<ItemPedido> itens;
 
     private Double totalPedido;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_pagamento")
+    private Pagamento pagamento;
 
     public LocalDateTime getDataHora() {
         return dataHora;
@@ -53,6 +59,14 @@ public class Pedido extends DefaultEntity {
 
     public void setTotalPedido(Double totalPedido) {
         this.totalPedido = totalPedido;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
 }
