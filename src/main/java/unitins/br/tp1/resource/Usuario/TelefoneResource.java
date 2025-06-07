@@ -1,5 +1,6 @@
 package unitins.br.tp1.resource.Usuario;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -25,22 +26,26 @@ public class TelefoneResource {
     TelefoneService service;
 
     @GET
+    @RolesAllowed("Administrador")
     public Response buscarTodos() {
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/numero/{numero}")
     public Response buscarPorNumero(String numero) {
         return Response.status(Status.OK).entity(service.findByNumero(numero)).build();
     }
 
     @POST
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response incluir(@Valid TelefoneDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/{id}")
     public Response alterar(Long id, TelefoneDTO dto) {
         service.update(id, dto);
@@ -48,6 +53,7 @@ public class TelefoneResource {
     }
 
     @DELETE
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {

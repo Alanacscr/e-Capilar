@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource.Endereco;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,28 +27,33 @@ public class MunicipioResource {
     MunicipioService service;
 
     @GET
+    @RolesAllowed("Administrador")
     public Response buscarTodos() {
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/nome/{nome}")
     public Response buscarPorNome(String nome) {
         return Response.status(Status.OK).entity(service.findByNome(nome)).build();
     }
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/estado/{id}")
     public Response buscarPorEstado(Long id) { 
         return Response.status(Status.OK).entity(service.findByEstado(id)).build();
     }
 
     @POST
+    @RolesAllowed("Administrador")
     public Response incluir(@Valid MunicipioDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build(); 
     }
 
     @PUT
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     public Response alterar(Long id, MunicipioDTO dto) {
         service.update(id, dto);
@@ -55,6 +61,7 @@ public class MunicipioResource {
     }
 
     @DELETE
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {

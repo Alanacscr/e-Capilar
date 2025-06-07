@@ -45,22 +45,26 @@ public class UsuarioResource {
     }
 
     @GET
+    @RolesAllowed("Administrador")
     public Response buscarTodos() {
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed("Administrador")
     @Path("/nome/{nome}")
     public Response buscarPorNome(String nome) {
         return Response.status(Status.OK).entity(service.findByNome(nome)).build();
     }
 
     @POST
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response incluir(@Valid UsuarioDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/{id}")
     public Response alterar(Long id, UsuarioDTO dto) {
         service.update(id, dto);
@@ -68,6 +72,7 @@ public class UsuarioResource {
     }
     
     @DELETE
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {

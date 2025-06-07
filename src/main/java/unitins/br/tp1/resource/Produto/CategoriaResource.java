@@ -1,5 +1,6 @@
 package unitins.br.tp1.resource.Produto;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -24,28 +25,33 @@ public class CategoriaResource {
     CategoriaService service;
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response buscarTodos() { 
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/produto/{id}")
     public Response buscarPorProduto(Long id) { 
         return Response.status(Status.OK).entity(service.findByProduto(id)).build();
     }
 
     @GET
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/nome/{nome}")
     public Response  buscarPorNome(String nome) { 
         return Response.status(Status.OK).entity(service.findByNome(nome)).build();
     }
 
     @POST
+    @RolesAllowed("Administrador")
     public Response incluir(CategoriaDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     public Response alterar(Long id, CategoriaDTO dto) {
         service.update(id, dto);
@@ -53,6 +59,7 @@ public class CategoriaResource {
     }
 
     @DELETE
+    @RolesAllowed("Administrador")
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {

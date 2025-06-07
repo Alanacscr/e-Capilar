@@ -2,6 +2,7 @@ package unitins.br.tp1.resource.Pedido;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -30,12 +31,14 @@ public class PedidoResource {
     PedidoService pedidoService;
 
     @GET
+    @RolesAllowed("Administrador")
     @Path("/email/{email}")
     public Response buscarPorEmail(String email) {
         return Response.status(Status.OK).entity(pedidoService.findByEmail(email)).build();
     }
 
     @POST
+    @RolesAllowed("Cliente")
     @Path("/criarpedido")
     public Response criarPedido(PedidoDTO dto) {
         // Obtendo o email do token
@@ -48,6 +51,7 @@ public class PedidoResource {
     }
 
     @POST
+    @RolesAllowed("Cliente")
     @Path("/{idPedido}/pagamento/pix")
     public Response adicionarPagamentoPix(@PathParam("idPedido") Long idPedido, PixDTO pixDTO) {
         // Chama o serviço para adicionar o pagamento Pix ao pedido
@@ -56,6 +60,7 @@ public class PedidoResource {
     }
 
     @POST
+    @RolesAllowed("Cliente")
     @Path("/{idPedido}/pagamento/boleto")
     public Response adicionarPagamentoBoleto(@PathParam("idPedido") Long idPedido, BoletoDTO boletoDTO) {
         // Chama o serviço para adicionar o pagamento Boleto ao pedido

@@ -12,7 +12,6 @@ public abstract class Pagamento extends DefaultEntity {
 
     @Column(nullable = false)
     private Double valor;
-     // Adicionando o campo tipoPagamento
     @Column(nullable = false)
     private String tipoPagamento;
 
