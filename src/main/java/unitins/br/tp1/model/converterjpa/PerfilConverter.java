@@ -2,7 +2,7 @@ package unitins.br.tp1.model.converterjpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import unitins.br.tp1.model.Perfil;
+import unitins.br.tp1.model.Usuario.Perfil;
 
 @Converter(autoApply = true)
 public class PerfilConverter implements AttributeConverter<Perfil, Integer> {

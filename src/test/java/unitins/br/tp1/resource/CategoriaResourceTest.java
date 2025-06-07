@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import unitins.br.tp1.dto.CategoriaDTO;
-import unitins.br.tp1.dto.CategoriaResponseDTO;
-import unitins.br.tp1.service.CategoriaService;
+import unitins.br.tp1.dto.Produto.CategoriaDTO;
+import unitins.br.tp1.dto.Produto.CategoriaResponseDTO;
+import unitins.br.tp1.service.Produto.CategoriaService;
 
 @QuarkusTest
 public class CategoriaResourceTest {

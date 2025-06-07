@@ -2,7 +2,7 @@ package unitins.br.tp1.model.converterjpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import unitins.br.tp1.model.Cor;
+import unitins.br.tp1.model.Produto.Cor;
 
 @Converter(autoApply = true)
 public class CorConverter implements AttributeConverter<Cor, Integer> {

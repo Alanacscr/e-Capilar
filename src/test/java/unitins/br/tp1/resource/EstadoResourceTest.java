@@ -3,9 +3,9 @@ package unitins.br.tp1.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import unitins.br.tp1.dto.EstadoDTO;
-import unitins.br.tp1.dto.EstadoResponseDTO;
-import unitins.br.tp1.service.EstadoService;
+import unitins.br.tp1.dto.Endereco.EstadoDTO;
+import unitins.br.tp1.dto.Endereco.EstadoResponseDTO;
+import unitins.br.tp1.service.Endereco.EstadoService;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;

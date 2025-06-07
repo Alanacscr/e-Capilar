@@ -3,9 +3,9 @@ package unitins.br.tp1.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import unitins.br.tp1.dto.EnderecoDTO;
-import unitins.br.tp1.dto.EnderecoResponseDTO;
-import unitins.br.tp1.service.EnderecoService;
+import unitins.br.tp1.dto.Endereco.EnderecoDTO;
+import unitins.br.tp1.dto.Endereco.EnderecoResponseDTO;
+import unitins.br.tp1.service.Endereco.EnderecoService;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
