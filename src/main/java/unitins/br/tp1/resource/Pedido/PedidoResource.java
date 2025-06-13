@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource.Pedido;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.logging.Logger;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -30,10 +31,15 @@ public class PedidoResource {
     @Inject
     PedidoService pedidoService;
 
+    private static final Logger LOG = Logger.getLogger(PedidoResource.class);
+
     @GET
     @RolesAllowed("Administrador")
     @Path("/email/{email}")
     public Response buscarPorEmail(String email) {
+        LOG.info("Entrou no método buscarPorEmail");
+        LOG.debug("O parametro informado foi: " + email);
+
         return Response.status(Status.OK).entity(pedidoService.findByEmail(email)).build();
     }
 
@@ -41,6 +47,8 @@ public class PedidoResource {
     @RolesAllowed("Cliente")
     @Path("/criarpedido")
     public Response criarPedido(PedidoDTO dto) {
+        LOG.info("Entrou no método criarPedido");
+
         // Obtendo o email do token
         String email = jwt.getSubject();
 
@@ -54,6 +62,8 @@ public class PedidoResource {
     @RolesAllowed("Cliente")
     @Path("/{idPedido}/pagamento/pix")
     public Response adicionarPagamentoPix(@PathParam("idPedido") Long idPedido, PixDTO pixDTO) {
+        LOG.info("Entrou no método adicionarPagamentoPix");
+
         // Chama o serviço para adicionar o pagamento Pix ao pedido
         PedidoResponseDTO pedido = pedidoService.adicionarPagamentoPix(idPedido, pixDTO);
         return Response.ok().entity(pedido).build();
@@ -63,6 +73,8 @@ public class PedidoResource {
     @RolesAllowed("Cliente")
     @Path("/{idPedido}/pagamento/boleto")
     public Response adicionarPagamentoBoleto(@PathParam("idPedido") Long idPedido, BoletoDTO boletoDTO) {
+        LOG.info("Entrou no método adicionarPagamentoBoleto");
+
         // Chama o serviço para adicionar o pagamento Boleto ao pedido
         PedidoResponseDTO pedido = pedidoService.adicionarPagamentoBoleto(idPedido, boletoDTO);
         return Response.ok().entity(pedido).build();

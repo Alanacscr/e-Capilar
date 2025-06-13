@@ -1,5 +1,7 @@
 package unitins.br.tp1.resource.Endereco;
 
+import org.jboss.logging.Logger;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -15,6 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import unitins.br.tp1.dto.Endereco.EstadoDTO;
+import unitins.br.tp1.dto.Endereco.EstadoResponseDTO;
 import unitins.br.tp1.service.Endereco.EstadoService;
 
 @Path("estados")
@@ -25,22 +28,35 @@ public class EstadoResource {
     @Inject
     EstadoService service;
 
+    private static final Logger LOG = Logger.getLogger(EstadoResource.class);
+
     @GET
     @RolesAllowed("Administrador")
-    public Response buscarTodos() { 
+    public Response buscarTodos() {
+        LOG.info("Entrou no método buscarTodos");
+
         return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
-    @RolesAllowed({"Cliente", "Administrador"})
+    @RolesAllowed({ "Cliente", "Administrador" })
     @Path("/sigla/{sigla}")
-    public Response buscarPorSigla(String sigla) { 
-        return Response.ok().entity(service.findBySigla(sigla)).build();
+    public Response buscarPorSigla(String sigla) {
+        LOG.info("Entrou no método buscarPorSigla");
+        LOG.debug("O parametro informado foi: " + sigla);
+
+        EstadoResponseDTO dto = service.findBySigla(sigla);
+
+        LOG.debug("Os dados de retorno são: Estado= " + dto.nome() + ", Sigla= " + dto.sigla());
+
+        return Response.ok().entity(dto).build();
     }
 
     @POST
     @RolesAllowed("Administrador")
     public Response incluir(@Valid EstadoDTO dto) {
+        LOG.info("Entrou no método incluir");
+
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
@@ -48,6 +64,8 @@ public class EstadoResource {
     @RolesAllowed("Administrador")
     @Path("/{id}")
     public Response alterar(Long id, EstadoDTO dto) {
+        LOG.info("Entrou no método alterar");
+
         service.update(id, dto);
         return Response.noContent().build();
     }
@@ -57,6 +75,8 @@ public class EstadoResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        LOG.info("Entrou no método apagar");
+
         service.delete(id);
         return Response.noContent().build();
     }

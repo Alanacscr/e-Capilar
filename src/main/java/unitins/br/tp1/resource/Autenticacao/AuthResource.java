@@ -1,5 +1,7 @@
 package unitins.br.tp1.resource.Autenticacao;
 
+import org.jboss.logging.Logger;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -28,9 +30,13 @@ public class AuthResource {
     @Inject
     UsuarioService usuarioService;
 
+    private static final Logger LOG = Logger.getLogger(AuthResource.class);
+
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response login(AuthDTO dto) {
+        LOG.info("Entrou no método login");
+
         String hash = null;
         try {
             hash = hashService.getHashSenha(dto.senha());

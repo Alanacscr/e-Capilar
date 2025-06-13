@@ -1,5 +1,7 @@
 package unitins.br.tp1.resource.Usuario;
 
+import org.jboss.logging.Logger;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,29 +27,40 @@ public class TelefoneResource {
     @Inject
     TelefoneService service;
 
+    private static final Logger LOG = Logger.getLogger(TelefoneResource.class);
+
     @GET
     @RolesAllowed("Administrador")
     public Response buscarTodos() {
+        LOG.info("Entrou no método buscarTodos");
+
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
     @GET
-    @RolesAllowed({"Cliente", "Administrador"})
+    @RolesAllowed({ "Cliente", "Administrador" })
     @Path("/numero/{numero}")
     public Response buscarPorNumero(String numero) {
+        LOG.info("Entrou no método buscarPorNumero");
+        LOG.debug("O parametro informado foi: " + numero);
+
         return Response.status(Status.OK).entity(service.findByNumero(numero)).build();
     }
 
     @POST
-    @RolesAllowed({"Cliente", "Administrador"})
+    @RolesAllowed({ "Cliente", "Administrador" })
     public Response incluir(@Valid TelefoneDTO dto) {
+        LOG.info("Entrou no método incluir");
+
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
-    @RolesAllowed({"Cliente", "Administrador"})
+    @RolesAllowed({ "Cliente", "Administrador" })
     @Path("/{id}")
     public Response alterar(Long id, TelefoneDTO dto) {
+        LOG.info("Entrou no método alterar");
+
         service.update(id, dto);
         return Response.noContent().build();
     }
@@ -57,6 +70,8 @@ public class TelefoneResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        LOG.info("Entrou no método apagar");
+
         service.delete(id);
         return Response.noContent().build();
     }

@@ -1,5 +1,7 @@
 package unitins.br.tp1.resource.Endereco;
 
+import org.jboss.logging.Logger;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,9 +26,13 @@ public class EnderecoResource {
     @Inject
     EnderecoService service;
 
+    private static final Logger LOG = Logger.getLogger(EnderecoResource.class);
+
     @GET
     @RolesAllowed("Administrador")
     public Response buscarTodos() {
+        LOG.info("Entrou no método buscarTodos");
+        
         return Response.status(Status.OK).entity(service.findAll()).build();
     }
 
@@ -34,6 +40,9 @@ public class EnderecoResource {
     @RolesAllowed("Administrador")
     @Path("/municipio/{id}")
     public Response buscarPorMunicipio(Long id) {
+        LOG.info("Entrou no método buscarPorMunicipio");
+        LOG.debug("O parametro informado foi: " + id);
+
         return Response.status(Status.OK).entity(service.findByMunicipio(id)).build();
     }
 
@@ -41,12 +50,17 @@ public class EnderecoResource {
     @RolesAllowed("Administrador")
     @Path("/bairro/{bairro}")
     public Response buscarPorBairro(String bairro) {
+        LOG.info("Entrou no método buscarPorBairro");
+        LOG.debug("O parametro informado foi: " + bairro);
+        
         return Response.status(Status.OK).entity(service.findByBairro(bairro)).build();
     }
 
     @POST
     @RolesAllowed({"Cliente", "Administrador"})
     public Response incluir(EnderecoDTO dto) {
+        LOG.info("Entrou no método incluir");
+        
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
@@ -54,6 +68,8 @@ public class EnderecoResource {
     @RolesAllowed({"Cliente", "Administrador"})
     @Path("/{id}")
     public Response alterar(Long id, EnderecoDTO dto) {
+        LOG.info("Entrou no método alterar");
+        
         service.update(id, dto);
         return Response.noContent().build();
     }
@@ -63,6 +79,8 @@ public class EnderecoResource {
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {
+        LOG.info("Entrou no método apagar");
+
         service.delete(id);
         return Response.noContent().build();
     }
