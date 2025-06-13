@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.br.tp1.dto.Endereco.MunicipioDTO;
@@ -22,6 +23,7 @@ public class MunicipioResourceTest {
         MunicipioService municipioService;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarTodos() {
                 given()
                                 .when().get("/municipios")
@@ -30,6 +32,7 @@ public class MunicipioResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorNome() {
                 String nome = "Palmas";
 
@@ -42,6 +45,7 @@ public class MunicipioResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorEstado() {
                 Long idEstado = 1L;
                 given()
@@ -53,6 +57,7 @@ public class MunicipioResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testIncluir() {
                 MunicipioDTO municipio = new MunicipioDTO(
                                 "Petrolina",
@@ -74,6 +79,7 @@ public class MunicipioResourceTest {
         static Long id = null;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testAlterar() {
                 MunicipioDTO municipio = new MunicipioDTO(
                                 "Petrolina",
@@ -97,6 +103,7 @@ public class MunicipioResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testApagar() {
                 given()
                                 .when().delete("/municipios/" + id)

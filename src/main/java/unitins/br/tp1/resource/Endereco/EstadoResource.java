@@ -31,7 +31,7 @@ public class EstadoResource {
     private static final Logger LOG = Logger.getLogger(EstadoResource.class);
 
     @GET
-    @RolesAllowed("Administrador")
+    @RolesAllowed({ "Cliente", "Administrador" })
     public Response buscarTodos() {
         LOG.info("Entrou no método buscarTodos");
 

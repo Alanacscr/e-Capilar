@@ -21,7 +21,7 @@ insert into telefone (codigoarea, numero) values ('063', '99215-1290');
 insert into telefone (codigoarea, numero) values ('063', '98129-1290');
 
 insert into produto (nome, descricao, preco, quantidadeestoque, cor)
-values ('Igora', 'Produto de otima qualidade', 79.90, 10, 1);
+values ('Igora', 'Produto de otima qualidade', 50, 10, 1);
 
 insert into categoria (nome, id_produto) values ('fuleira', 1);
 
@@ -41,13 +41,24 @@ insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco)
         1);
 
 insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco) 
-    values (
+values (
         'Janio', 
         'janio@gmail.com',
         'SiM9w9cv/QHp+fZSykTmN52bUoj++hlYrZoet0hxU8eajwrdo6L5hmWoOm96rYeFQ1YyMKBKLuRE05aC5FKL/Q==',
         2,
         1,
         2);
+
+insert into pagamento (tipopagamento, valor)
+values('Pix', 50);
+
+insert into pix (id, chavepix) 
+values (1, '123456789');
+
+insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
+values ('2025-05-10T12:15:50', 1, 50, 1);
+
+
 
 
 

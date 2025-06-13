@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.br.tp1.dto.Usuario.TelefoneDTO;
@@ -22,6 +23,7 @@ public class TelefoneResourceTest {
     TelefoneService telefoneService;
 
     @Test
+    @TestSecurity(user = "test", roles = { "Administrador" })
     void testBuscarTodos() {
         given()
                 .when().get("/telefones")
@@ -30,6 +32,7 @@ public class TelefoneResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
     void testBuscarPorNumero() {
         String numero = "99215-1290"; 
 
@@ -42,6 +45,7 @@ public class TelefoneResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
     void testIncluir() {
         TelefoneDTO Telefone = new TelefoneDTO(
                 "062",
@@ -63,6 +67,7 @@ public class TelefoneResourceTest {
     static Long id = null;
 
     @Test
+    @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
     void testAlterar() {
         TelefoneDTO telefone = new TelefoneDTO(
                 "062",
@@ -87,6 +92,7 @@ public class TelefoneResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = { "Administrador" })
     void testApagar() {
         given()
                 .when().delete("/telefones/" + id)

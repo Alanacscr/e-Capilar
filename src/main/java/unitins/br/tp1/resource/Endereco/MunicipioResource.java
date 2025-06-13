@@ -30,7 +30,7 @@ public class MunicipioResource {
     private static final Logger LOG = Logger.getLogger(MunicipioResource.class);
 
     @GET
-    @RolesAllowed("Administrador")
+    @RolesAllowed({ "Cliente", "Administrador" })
     public Response buscarTodos() {
         LOG.info("Entrou no método buscarTodos");
 

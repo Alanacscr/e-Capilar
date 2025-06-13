@@ -1,38 +1,29 @@
 package unitins.br.tp1.resource;
 
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
+import unitins.br.tp1.service.Pedido.PedidoService;
 import jakarta.inject.Inject;
-import unitins.br.tp1.service.Usuario.UsuarioService;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class UsuarioResourceTest {
+public class PedidoResourceTest {
 
     @Inject
-    UsuarioService usuarioService;
+    PedidoService service;
 
     @Test
     @TestSecurity(user = "test", roles = { "Administrador" })
-    void testBuscarTodos() {
-        given()
-                .when().get("/usuarios")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    @TestSecurity(user = "test", roles = { "Administrador" })
-    void testBuscarPorNome() {
-        String nome = "Alana";
+    void testBuscarPedidoEmail() {
+        String email = "alana@gmail.com";
 
         given()
                 .when()
-                .get("/usuarios/nome/" + nome)
+                .get("/pedido/email/" + email)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThanOrEqualTo(0));

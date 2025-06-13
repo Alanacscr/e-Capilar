@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.br.tp1.dto.Endereco.EstadoDTO;
@@ -22,6 +23,7 @@ public class EstadoResourceTest {
         EstadoService estadoService;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarTodos() {
                 given()
                                 .when().get("/estados")
@@ -30,6 +32,7 @@ public class EstadoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorSigla() {
                 String sigla = "TO";
 
@@ -42,6 +45,7 @@ public class EstadoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testIncluir() {
                 EstadoDTO estado = new EstadoDTO(
                                 "TO",
@@ -63,6 +67,7 @@ public class EstadoResourceTest {
         static Long id = null;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testAlterar() {
                 EstadoDTO estado = new EstadoDTO(
                                 "TO",
@@ -87,6 +92,7 @@ public class EstadoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testApagar() {
                 given()
                                 .when().delete("/estados/" + id)

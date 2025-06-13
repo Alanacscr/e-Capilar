@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 import org.junit.jupiter.api.Test;
-
+import io.quarkus.test.security.TestSecurity;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
@@ -23,6 +23,7 @@ public class CategoriaResourceTest {
         CategoriaService categoriaService;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarTodos() {
                 given()
                                 .when().get("/categorias")
@@ -31,6 +32,7 @@ public class CategoriaResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorCategoria() {
                 String categoria = "fuleira";
 
@@ -43,6 +45,7 @@ public class CategoriaResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testIncluir() {
                 CategoriaDTO categoria = new CategoriaDTO("Basic", 1L);
 
@@ -61,6 +64,7 @@ public class CategoriaResourceTest {
         static Long id = null;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testAlterar() {
                 CategoriaDTO categoria = new CategoriaDTO("Premium - Alterado", 1L);
 
@@ -82,6 +86,7 @@ public class CategoriaResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorProduto() {
                 Long idProduto = 1L;
                 given()
@@ -93,6 +98,7 @@ public class CategoriaResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testApagar() {
                 given()
                                 .when().delete("/categorias/" + id)

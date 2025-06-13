@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.br.tp1.dto.Produto.ProdutoDTO;
@@ -22,6 +23,7 @@ public class ProdutoResourceTest {
         ProdutoService produtoService;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarTodos() {
                 given()
                                 .when().get("/produtos")
@@ -30,6 +32,7 @@ public class ProdutoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testBuscarPorNome() {
                 String nome = "Igora";
 
@@ -42,6 +45,7 @@ public class ProdutoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testIncluir() {
                 ProdutoDTO produto = new ProdutoDTO(
                                 "Tinta 01", "Boa", 79.9f, 2,
@@ -66,6 +70,7 @@ public class ProdutoResourceTest {
         static Long id = null;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testAlterar() {
                 ProdutoDTO produto = new ProdutoDTO(
                                 "Tinta 01", "Boa", 10.0, 2,
@@ -92,6 +97,7 @@ public class ProdutoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testApagar() {
                 given()
                                 .when().delete("/produtos/" + id)

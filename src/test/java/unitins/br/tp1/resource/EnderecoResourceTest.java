@@ -1,6 +1,7 @@
 package unitins.br.tp1.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.br.tp1.dto.Endereco.EnderecoDTO;
@@ -22,6 +23,7 @@ public class EnderecoResourceTest {
         EnderecoService enderecoService;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testBuscarTodos() {
                 given()
                                 .when().get("/enderecos")
@@ -30,6 +32,7 @@ public class EnderecoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testBuscarPorBairro() {
                 String bairro = "Taquaralto";
 
@@ -42,6 +45,7 @@ public class EnderecoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Administrador" })
         void testBuscarPorMunicipio() {
                 Long idMunicipio = 1L;
                 given()
@@ -53,6 +57,7 @@ public class EnderecoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testIncluir() {
                 EnderecoDTO endereco = new EnderecoDTO(
                                 "Rua P0", 12, "Plano Norte", "77065-890", "Nenhum",
@@ -78,6 +83,7 @@ public class EnderecoResourceTest {
         static Long id = null;
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testAlterar() {
                 EnderecoDTO endereco = new EnderecoDTO(
                                 "Rua P0", 12, "Plano Norte", "77065-890", "Nenhum",
@@ -105,6 +111,7 @@ public class EnderecoResourceTest {
         }
 
         @Test
+        @TestSecurity(user = "test", roles = { "Cliente", "Administrador" })
         void testApagar() {
                 given()
                                 .when().delete("/enderecos/" + id)
