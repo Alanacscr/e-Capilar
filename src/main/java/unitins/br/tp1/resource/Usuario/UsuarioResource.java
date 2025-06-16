@@ -68,7 +68,6 @@ public class UsuarioResource {
     }
 
     @POST
-    @RolesAllowed({"Cliente", "Administrador"})
     public Response incluir(@Valid UsuarioDTO dto) {
         LOG.info("Entrou no método incluir");
 

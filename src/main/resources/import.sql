@@ -14,6 +14,7 @@ insert into municipio (nome, id_estado) values ('Goiânia', 3);
 -- Insere Telefones
 insert into telefone (codigoarea, numero) values ('063', '99215-1290');
 insert into telefone (codigoarea, numero) values ('063', '98129-1290');
+insert into telefone (codigoarea, numero) values ('061', '92133-0000');
 
 -- Insere Produtos
 insert into produto (nome, descricao, preco, quantidadeestoque, cor)
@@ -36,6 +37,9 @@ values('Rua 1', 100,'Taquaralto', '11009-011','Predio', 1);
 
 insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
 values('Rua 2', 10,'Plano diretor Norte', '13229-011','Casa', 1);
+
+insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
+values('Planalto', 10,'Plano diretor Sul', '91223-011','Apartamento', 1);
 
 -- Insere Usuários
 -- Usuario Administrador
@@ -73,24 +77,13 @@ values(1, '2022-03-10T12:15:50', '126gfg2fg5gf36t273hudhfudjfjfk');
 insert into pix (id, chavepix) 
 values (2, '123456789');
 
--- Insere Pedidods
+-- Insere Pedidos
 insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
 values ('2025-05-10T12:15:50', 1, 50, 1);
 
 insert into itempedido (preco, quantidade, id_produto, id_pedido) 
 values (50, 1, 1, 1);
 
--- insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
--- values ('2025-06-10T11:12:50', 1, 55, 2);
-
--- insert into itempedido (preco, quantidade, id_produto, id_pedido) 
--- values (55, 1, 2, 2);
-
--- insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
--- values ('2025-04-10T11:13:50', 2, 60, 2);
-
--- insert into itempedido (preco, quantidade, id_produto, id_pedido) 
--- values (60, 3, 3, 3);
 
 
 

@@ -54,7 +54,7 @@ public class PedidoResource {
     }
 
     @POST
-    @RolesAllowed("Cliente")
+    @RolesAllowed({"Cliente", "Administrador"})
     @Path("/criarpedido")
     public Response criarPedido(PedidoDTO dto) {
         LOG.info("Entrou no método criarPedido");
