@@ -13,6 +13,7 @@ import unitins.br.tp1.dto.Pagamento.PixDTO;
 import unitins.br.tp1.dto.Pedido.ItemPedidoDTO;
 import unitins.br.tp1.dto.Pedido.PedidoDTO;
 import unitins.br.tp1.dto.Pedido.PedidoResponseDTO;
+import unitins.br.tp1.dto.Produto.ProdutoDTO;
 import unitins.br.tp1.model.Pagamento.Boleto;
 import unitins.br.tp1.model.Pagamento.Pagamento;
 import unitins.br.tp1.model.Pagamento.Pix;
@@ -43,6 +44,11 @@ public class PedidoServiceImpl implements PedidoService {
                 .map(PedidoResponseDTO::valueOf)
                 .collect(Collectors.toList());
         return pedidosDTO;
+    }
+
+    @Override
+    public PedidoResponseDTO findByPedido(long id) {
+        return PedidoResponseDTO.valueOf(pedidoRepository.findById(id));
     }
 
     @Override
@@ -101,6 +107,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         // Salvar os itens no pedido
         pedido.setItens(listaItem);
+        pedido.setStatusPedido("Aguardando Pagamento");
 
         // Verificando o tipo de pagamento e instanciando a classe correta
         if (pedidoDTO.pagamento() != null) {
@@ -146,30 +153,30 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-@Transactional
-public PedidoResponseDTO adicionarPagamentoPix(Long idPedido, PixDTO pixDTO) {
-    // Buscar o pedido pelo ID
-    Pedido pedido = pedidoRepository.findById(idPedido);
+    @Transactional
+    public PedidoResponseDTO adicionarPagamentoPix(Long idPedido, PixDTO pixDTO) {
+        // Buscar o pedido pelo ID
+        Pedido pedido = pedidoRepository.findById(idPedido);
 
-    if (pedido == null) {
-        throw new IllegalArgumentException("Pedido não encontrado.");
+        if (pedido == null) {
+            throw new IllegalArgumentException("Pedido não encontrado.");
+        }
+
+        // Criando o pagamento Pix
+        Pix pagamentoPix = new Pix(); // Instanciando um pagamento Pix
+        pagamentoPix.setValor(pedido.getTotalPedido());
+        pagamentoPix.setTipoPagamento("Pix");
+        pagamentoPix.setChavePix(pixDTO.chavePix()); // Definindo chavePix
+
+        // Associando o pagamento ao pedido
+        pedido.setPagamento(pagamentoPix);
+        pedido.setStatusPedido("Pago");
+
+        // Atualizando o pedido no banco de dados
+        pedidoRepository.getEntityManager().merge(pedido);
+
+        return PedidoResponseDTO.valueOf(pedido);
     }
-
-    // Criando o pagamento Pix
-    Pix pagamentoPix = new Pix(); // Instanciando um pagamento Pix
-    pagamentoPix.setValor(pedido.getTotalPedido());
-    pagamentoPix.setTipoPagamento("Pix");
-    pagamentoPix.setChavePix(pixDTO.chavePix()); // Definindo chavePix
-
-    // Associando o pagamento ao pedido
-    pedido.setPagamento(pagamentoPix);
-
-    // Atualizando o pedido no banco de dados
-    pedidoRepository.getEntityManager().merge(pedido);
-
-    return PedidoResponseDTO.valueOf(pedido);
-}
-
 
     @Override
     @Transactional
@@ -190,6 +197,7 @@ public PedidoResponseDTO adicionarPagamentoPix(Long idPedido, PixDTO pixDTO) {
 
         // Associando o pagamento ao pedido
         pedido.setPagamento(pagamentoBoleto);
+        pedido.setStatusPedido("Pago");
 
         // Atualizando o pedido no banco de dados
         pedidoRepository.getEntityManager().merge(pedido);
@@ -205,5 +213,28 @@ public PedidoResponseDTO adicionarPagamentoPix(Long idPedido, PixDTO pixDTO) {
             throw new IllegalArgumentException("Pedido não encontrado.");
         }
         return PedidoResponseDTO.valueOf(pedido);
+    }
+
+    @Override
+    public void update(long id, ProdutoDTO produto) {
+
+    }
+
+    @Override
+    public void cancelar(long id) {
+        // Buscar o pedido pelo ID
+        Pedido pedido = pedidoRepository.findById(id);
+
+        if (pedido == null) {
+            throw new IllegalArgumentException("Pedido não encontrado.");
+        }
+
+        pedido.setStatusPedido("Cancelado");
+    }
+
+    @Override
+    @Transactional
+    public List<PedidoResponseDTO> findAll() {
+         return pedidoRepository.findAll().stream().map(e -> PedidoResponseDTO.valueOf(e)).toList();
     }
 }

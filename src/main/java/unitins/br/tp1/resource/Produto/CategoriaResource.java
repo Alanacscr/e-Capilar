@@ -49,7 +49,7 @@ public class CategoriaResource {
     @GET
     @RolesAllowed({ "Cliente", "Administrador" })
     @Path("/nome/{nome}")
-    public Response buscarPorNome(String nome) {
+    public Response buscarPorCategoria(String nome) {
         LOG.info("Entrou no método buscarPorNome");
         LOG.debug("O parametro informado foi: " + nome);
 

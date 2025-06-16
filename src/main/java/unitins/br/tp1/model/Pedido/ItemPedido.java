@@ -1,5 +1,6 @@
 package unitins.br.tp1.model.Pedido;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,7 +13,7 @@ public class ItemPedido extends DefaultEntity {
     private Integer quantidade;
     private Double preco;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_produto")
     private Produto produto;
 

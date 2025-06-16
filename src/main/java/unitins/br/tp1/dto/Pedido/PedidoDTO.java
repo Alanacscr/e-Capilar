@@ -14,5 +14,7 @@ public record PedidoDTO(
     @Schema(description = "Valor total do pedido", example = "100.00")
     Double total,
     @JsonIgnore
-    Object pagamento  // Adicionando o pagamento no DTO
+    Object pagamento,
+    @JsonIgnore
+    String statusPedido
 ) { }

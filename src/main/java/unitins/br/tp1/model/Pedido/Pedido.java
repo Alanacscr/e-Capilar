@@ -31,6 +31,8 @@ public class Pedido extends DefaultEntity {
     @JoinColumn(name = "id_pagamento")
     private Pagamento pagamento;
 
+    private String statusPedido;
+
     public LocalDateTime getDataHora() {
         return dataHora;
     }
@@ -69,6 +71,14 @@ public class Pedido extends DefaultEntity {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public String getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(String statusPedido) {
+        this.statusPedido = statusPedido;
     }
 
 }

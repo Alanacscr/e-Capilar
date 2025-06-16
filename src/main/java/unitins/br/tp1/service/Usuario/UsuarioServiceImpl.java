@@ -32,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         novoUsuario.setNome(usuario.nome());
         novoUsuario.setEmail(usuario.email());
         novoUsuario.setSenha(usuario.senha());
-        novoUsuario.setPerfil(Perfil.valueOf(usuario.idPerfil()));
+        novoUsuario.setPerfil(Perfil.CLIENTE);
 
         // buscando o telefone pelo id
         Telefone telefone = telefoneRepository.findById(usuario.idTelefone());

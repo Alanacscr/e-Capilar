@@ -1,36 +1,44 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(1, 'field-1');
--- insert into myentity (id, field) values(2, 'field-2');
--- insert into myentity (id, field) values(3, 'field-3');
--- alter sequence myentity_seq restart with 4;
-
-
+-- Insere Estados
 insert into estado (sigla, nome) values ('TO', 'Tocantins');
 insert into estado (sigla, nome) values ('SP', 'São Paulo');
 insert into estado (sigla, nome) values ('GO', 'Goiás');
 insert into estado (sigla, nome) values ('RS', 'Rio Grande do Sul');
 insert into estado (sigla, nome) values ('RJ', 'Rio de Janeiro');
 
+-- Insere Municipios
 insert into municipio (nome, id_estado) values ('Palmas', 1);
 insert into municipio (nome, id_estado) values ('Araguaina', 1);
 insert into municipio (nome, id_estado) values ('Santos', 2);
 insert into municipio (nome, id_estado) values ('Goiânia', 3);
 
+-- Insere Telefones
 insert into telefone (codigoarea, numero) values ('063', '99215-1290');
 insert into telefone (codigoarea, numero) values ('063', '98129-1290');
 
+-- Insere Produtos
 insert into produto (nome, descricao, preco, quantidadeestoque, cor)
 values ('Igora', 'Produto de otima qualidade', 50, 10, 1);
 
-insert into categoria (nome, id_produto) values ('fuleira', 1);
+insert into produto (nome, descricao, preco, quantidadeestoque, cor)
+values ('L´oreal', 'Cabelos lisos', 55, 100, 2);
 
+insert into produto (nome, descricao, preco, quantidadeestoque, cor)
+values ('Clear', 'Cabelo Masculino', 20, 10, 3);
+
+-- Insere Categorias
+insert into categoria (nome, id_produto) values ('Promoção', 1);
+insert into categoria (nome, id_produto) values ('Lançamentos', 2);
+insert into categoria (nome, id_produto) values ('Premium', 2);
+
+-- Insere Endereços
 insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
 values('Rua 1', 100,'Taquaralto', '11009-011','Predio', 1);
 
 insert into endereco (logradouro, numero, bairro, cep, complemento, id_municipio)
 values('Rua 2', 10,'Plano diretor Norte', '13229-011','Casa', 1);
 
+-- Insere Usuários
+-- Usuario Administrador
 insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco) 
     values (
         'Alana', 
@@ -40,6 +48,7 @@ insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco)
         2,
         1);
 
+-- Usuario Cliente
 insert into usuario(nome, email, senha, perfil, id_telefone, id_endereco) 
 values (
         'Janio', 
@@ -49,14 +58,41 @@ values (
         1,
         2);
 
+-- Insere Pagamentos
 insert into pagamento (tipopagamento, valor)
 values('Pix', 50);
 
-insert into pix (id, chavepix) 
-values (1, '123456789');
+insert into pagamento (tipopagamento, valor)
+values('Pix', 50);
 
+-- Insere meio de pagamento por boleto
+insert into boleto (id, datavencimento, codigobarras)
+values(1, '2022-03-10T12:15:50', '126gfg2fg5gf36t273hudhfudjfjfk');
+
+-- Insere meio de pagamento por pix
+insert into pix (id, chavepix) 
+values (2, '123456789');
+
+-- Insere Pedidods
 insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
 values ('2025-05-10T12:15:50', 1, 50, 1);
+
+insert into itempedido (preco, quantidade, id_produto, id_pedido) 
+values (50, 1, 1, 1);
+
+-- insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
+-- values ('2025-06-10T11:12:50', 1, 55, 2);
+
+-- insert into itempedido (preco, quantidade, id_produto, id_pedido) 
+-- values (55, 1, 2, 2);
+
+-- insert into pedido (datahora, id_usuario, totalpedido, id_pagamento) 
+-- values ('2025-04-10T11:13:50', 2, 60, 2);
+
+-- insert into itempedido (preco, quantidade, id_produto, id_pedido) 
+-- values (60, 3, 3, 3);
+
+
 
 
 

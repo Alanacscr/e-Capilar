@@ -16,7 +16,8 @@ public record PedidoResponseDTO(
     List<ItemPedidoResponseDTO> itens,
     @Schema(description = "Valor total do pedido", example = "100.00")
     Double total,
-    PagamentoResponseDTO pagamento  // Adicionando o pagamento no DTO de resposta
+    PagamentoResponseDTO pagamento,
+    String statusPedido  
 ) {
 
     public static PedidoResponseDTO valueOf(Pedido pedido) {
@@ -30,7 +31,8 @@ public record PedidoResponseDTO(
                 UsuarioResponseDTO.valueOf(pedido.getUsuario()),
                 pedido.getItens().stream().map(i -> ItemPedidoResponseDTO.valueOf(i)).toList(),
                 pedido.getTotalPedido(),
-                PagamentoResponseDTO.valueOf(pedido.getPagamento())  // Preenchendo o pagamento
+                PagamentoResponseDTO.valueOf(pedido.getPagamento()), 
+                pedido.getStatusPedido() 
         );
     }
 }

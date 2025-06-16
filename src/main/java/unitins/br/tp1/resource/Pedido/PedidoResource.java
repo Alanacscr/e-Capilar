@@ -5,7 +5,9 @@ import org.jboss.logging.Logger;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -32,6 +34,14 @@ public class PedidoResource {
     PedidoService pedidoService;
 
     private static final Logger LOG = Logger.getLogger(PedidoResource.class);
+
+    @GET
+    @RolesAllowed({ "Administrador" })
+    public Response buscarTodos() {
+        LOG.info("Entrou no método buscarTodos");
+
+        return Response.status(Status.OK).entity(pedidoService.findAll()).build();
+    }
 
     @GET
     @RolesAllowed("Administrador")
@@ -78,5 +88,16 @@ public class PedidoResource {
         // Chama o serviço para adicionar o pagamento Boleto ao pedido
         PedidoResponseDTO pedido = pedidoService.adicionarPagamentoBoleto(idPedido, boletoDTO);
         return Response.ok().entity(pedido).build();
+    }
+
+    @DELETE
+    @RolesAllowed("Administrador")
+    @Path("/{id}")
+    @Transactional
+    public Response cancelar(Long id) {
+        LOG.info("Entrou no método Cancelar");
+
+        pedidoService.cancelar(id);
+        return Response.noContent().build();
     }
 }

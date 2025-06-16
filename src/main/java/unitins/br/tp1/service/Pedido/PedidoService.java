@@ -6,12 +6,17 @@ import unitins.br.tp1.dto.Pagamento.BoletoDTO;
 import unitins.br.tp1.dto.Pagamento.PixDTO;
 import unitins.br.tp1.dto.Pedido.PedidoDTO;
 import unitins.br.tp1.dto.Pedido.PedidoResponseDTO;
+import unitins.br.tp1.dto.Produto.ProdutoDTO;
 
 public interface PedidoService {
 
     List<PedidoResponseDTO> findByEmail(String email);
     PedidoResponseDTO findById(long idPedido, String email); 
+    PedidoResponseDTO findByPedido(long idPedido); 
+    List<PedidoResponseDTO> findAll();
     PedidoResponseDTO create(PedidoDTO pedido, String email);
+    void update(long id, ProdutoDTO produto);
+    void cancelar(long id);
     // Métodos para buscar e atualizar o pedido
     PedidoResponseDTO buscarPedido(Long idPedido);
 
